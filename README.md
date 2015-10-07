@@ -72,6 +72,10 @@ We are gathering as many results as possible from the participants with the data
 
 This is the current state of the process:
 
+Challenge
+---------
+1. This folder contains the original results of the challenge for the top 20 participants (both valid and test networks)
+
 AAAGV
 -----
 1. Original-variations: missing permutations on noise levels 1 and 2.
