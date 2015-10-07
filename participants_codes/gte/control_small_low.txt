@@ -1,0 +1,48 @@
+// -- SimKernel control file --
+
+size = 100;
+NetworkTag = "small";
+FormatOutputForMathematica = False;
+
+// word length
+p = 2;
+SourceMarkovOrder = p;
+TargetMarkovOrder = p;
+StartSampleIndex = p;
+globalbins = 2;
+
+bins = 2;
+binEdges = {-10.0, 0.12, 10.0};
+
+inputpath = "/home/users/orlandi/connectomicsPCVdata/data/small/low-bursting/";
+outputpath = "/home/users/orlandi/connectomicsPCVdata/participants/gte/small/low-bursting/";
+
+// Network iterator
+networkList = Table[i, {i, 451, 500, 1}];
+networkListIterator = Iterator[j, {j, 0, Length[networkList]-1}];
+networkLabel = ToString[networkList[[networkListIterator]]];
+
+// CC iterator
+ccList = {5, 3, 2};
+ccListIterator = Iterator[j, {j, 0, Length[ccList]-1}];
+ccLabel = ToString[ccList[[ccListIterator]]];
+
+// input data
+baseFile = "_N100_CC0" + ccLabel + "_" + networkLabel;
+inputfile = inputpath + "fluorescence"+baseFile+".txt";
+
+samples = 175000;
+// speedup hack:
+// samples = 60*1000/tauF;
+
+HighPassFilterQ = True;
+InstantFeedbackTermQ = True;
+IncludeGlobalSignalQ = True;
+
+// RelativeGlobalConditioningLevelQ = False;
+GlobalConditioningLevel = 0.1;
+
+// output files
+outputfile = outputpath + "gte" + baseFile + ".csv";
+outputparsfile = outputpath + "pars" + baseFile + ".txt";
+

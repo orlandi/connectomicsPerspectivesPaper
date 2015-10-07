@@ -1,0 +1,56 @@
+// -- SimKernel control file --
+
+size = 1000;
+networkTagList = {"valid", "test"};
+networkTagListIterator = Iterator[j, {j, 0, Length[networkTagList]-1}];
+NetworkTag = ToString[networkTagList[[networkTagListIterator]]];
+
+FormatOutputForMathematica = False;
+
+// word length
+p = 2;
+SourceMarkovOrder = p;
+TargetMarkovOrder = p;
+StartSampleIndex = p;
+globalbins = 2;
+
+bins = 2;
+binEdges = {-10.0, 0.12, 10.0};
+
+inputpath = "/home/users/orlandi/connectomicsPCVdata/data/original-variations/" + NetworkTag + "/";
+outputpath = "/home/users/orlandi/connectomicsPCVdata/participants/gte/original-variations/" + NetworkTag + "/";
+
+// Iterators
+noiseList = {1, 2, 3};
+noiseListIterator = Iterator[j, {j, 0, Length[noiseList]-1}];
+noiseLabel = ToString[noiseList[[noiseListIterator]]];
+
+lsList = {1, 2, 3};
+lsListIterator = Iterator[j, {j, 0, Length[lsList]-1}];
+lsLabel = ToString[lsList[[lsListIterator]]];
+
+rateList = {1, 2, 3};
+rateListIterator = Iterator[j, {j, 0, Length[rateList]-1}];
+rateLabel = ToString[rateList[[rateListIterator]]];
+samplesList = {89000, 175000, 300000};
+samples = samplesList[[rateListIterator]];
+
+// input data
+baseFile = "_" +NetworkTag + "_noise" + noiseLabel + "_ls" + lsLabel + "_rate" + rateLabel;
+inputfile = inputpath + "fluorescence"+baseFile+".txt";
+
+//samples = 175000;
+// speedup hack:
+// samples = 60*1000/tauF;
+
+HighPassFilterQ = True;
+InstantFeedbackTermQ = True;
+IncludeGlobalSignalQ = True;
+
+// RelativeGlobalConditioningLevelQ = False;
+GlobalConditioningLevel = 0.1;
+
+// output files
+outputfile = outputpath + "gte" + baseFile + ".csv";
+outputparsfile = outputpath + "pars" + baseFile + ".txt";
+

@@ -1,0 +1,1 @@
+python main.py -f /Volumes/bigdata/connectomicsPCV/data/original-variations/valid/fluorescence_valid_noise3_ls1_rate1.txt -o /Volumes/bigdata/connectomicsPCV/participants/aaagv/original-variations-check -n valid -m tuned -d 1
