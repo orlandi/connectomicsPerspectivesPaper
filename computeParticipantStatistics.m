@@ -5,13 +5,16 @@
 
 clear all;
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE THE CHALLENGE FOLDER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(ismac || isunix)
-    challengeFolder = '~/research/connectomicsPCVpaper';
-elseif(ispc)
-    challengeFolder = 'C:\whatever\';
+currentFile = mfilename('fullpath');
+% In case we decide to run the code by blocks
+if(isempty(currentFile))
+    challengeFolder = '~/research/connectomicsPerspectivesPaper';
+else
+    challengeFolder = fileparts(currentFile);
 end
 
 % 'Pathify'
@@ -22,25 +25,25 @@ addpath(genpath([pwd filesep 'matlab']));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% DEFINE THE INPUT FILES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-groundTruthFolder = '/Users/orlandi/connectomicsPCVdata/groundtruth';
-participantFolder = '/Users/orlandi/connectomicsPCVdata/participants/gte';
-%participantFolder = '/Users/orlandi/connectomicsPCVdata/participants/aaagv';
-datasetFolder = 'small/high-bursting';
-participantName = 'GTE';
+groundTruthFolder = [pwd filesep 'groundtruth'];
+participantFolder = [pwd filesep 'participants_results' filesep 'aaagv'];
+datasetFolder = 'small/normal-bursting';
+
+participantName = 'AAAGV';
 
 networkBaseFile = 'network_N100_CC0?_?.txt';
-scoresBaseFile = 'gte_N100_CC0?_?.csv';
-%scoresBaseFile = 'N100_CC0?_?-m=tuned-d=1.csv';
+%scoresBaseFile = 'gte_N100_CC0?_?.csv';
+scoresBaseFile = 'N100_CC0?_?-m=tuned-d=1.csv';
 
 
 networkFile = [groundTruthFolder filesep datasetFolder filesep networkBaseFile];
 scoresFile = [participantFolder filesep datasetFolder filesep scoresBaseFile ];
 
-clusteringList = [2];
+clusteringList = [5];
 %clusteringList = [2 3 5];
-%networkList = 451:500;
+networkList = 451:500;
 %networkList = 451:468;
-networkList = 452;
+%networkList = 452;
 inhibition_active = false;
 %%
 binsROC = 50;
@@ -91,7 +94,6 @@ for it1 = 1:length(clusteringList)
         groundTruth = sparse(tmp(:,1), tmp(:,2), tmp(:,3));
         
         % Load the scores
-        %[scores, ~, ~]=readNetworkScoresFromCSV(currScoresFile, 'N100_CC01_451');
         scores = readFastNetworkScoresFromCSV(currScoresFile);
         
         [AUC, FPR, TPR, ~] = computeFastROC(groundTruth, scores, FPRvalues);
@@ -116,7 +118,6 @@ end
 
 %% ROC and PR curves together
 createFigure(20, 10);
-%ax = multigap_subplot(1, 2, 'gap_C', 0.1, 'margin_LR', [0.075 0.02], 'margin_TB', [0.1 0.15]);
 ax = multigap_subplot(1, 2, 'gap_C', 0.1, 'margin_LR', [0.075 0.075], 'margin_TB', [0.15 0.15]);
 
 axes(ax(1));
@@ -124,8 +125,6 @@ hold on;
 hl = [];
 for it1 = 1:length(clusteringList)
     hl = [hl; plot(FPRvalues,squeeze(meanTPR{it1}))];
-    %h = cistdplot(FPRvalues, meanTPR{it1}, 1.96*stdTPR{it1}/sqrt(length(networkList)), get(hl(it1), 'Color'));
-    %set(h, 'LineStyle', 'none', 'FaceColor', get(hl(it1), 'Color'), 'FaceAlpha', 0.3);
     h = boundedline(FPRvalues, meanTPR{it1}, 1.96*stdTPR{it1}/sqrt(length(networkList)), 'cmap', get(hl(it1), 'Color'), 'alpha');
     set(hl(it1), 'DisplayName', sprintf('CC = %.1f AUC = %.3f', clusteringList(it1)*0.1, meanAUCROC(it1)));
     
@@ -146,11 +145,6 @@ axes(ax(2));
 hold on;
 hl = [];
 for it1 = 1:length(clusteringList)
-%     hl = [hl; plot(recallValues, squeeze(meanPrecision{it1}))];
-%     h = cistdplot(recallValues, meanPrecision{it1}, 1.96*stdPrecision{it1}/sqrt(length(networkList)), get(hl(it1), 'Color'));
-%     h.FaceAlpha = 0.5;
-%     set(h, 'LineStyle', '-', 'FaceColor', get(hl(it1), 'Color'), 'FaceAlpha', 0.3);
-%     set(hl(it1), 'DisplayName', sprintf('CC = %.1f AUC = %.3f', clusteringList(it1)*0.1, meanAUCPR(it1)));
     hl = [hl; plot(recallValues, squeeze(meanPrecision{it1}))];
     h = boundedline(recallValues, meanPrecision{it1}, 1.96*stdPrecision{it1}/sqrt(length(networkList)), 'cmap', get(hl(it1), 'Color'), 'alpha');
     set(hl(it1), 'DisplayName', sprintf('CC = %.1f AUC = %.3f', clusteringList(it1)*0.1, meanAUCPR(it1)));
@@ -174,10 +168,7 @@ mtit(sprintf('dataset: %s -- participant: %s', datasetFolder, participantName), 
 fileName = ['figures/ROCPR_', strrep(datasetFolder, filesep, '_'), '_', participantName , '.pdf'];
 export_fig(fileName, '-OpenGL');
 
-%fileName = ['ROCPR_', strrep(datasetFolder, filesep, '_'), '_', participantName];
-% opts = struct('FontMode','scaled','FontSizeMin', 6, 'FontSizeMax', 8, 'LineMode','scaled','Resolution',600);
-% exportfig(gcf,fileName,opts,'format','eps','Color','rgb','Bounds','loose');
-% system(sprintf('epspdf %s.eps %s.pdf',fileName, fileName),'-echo');
+
 close(gcf);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

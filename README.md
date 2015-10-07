@@ -75,7 +75,7 @@ This is the current state of the process:
 AAAGV
 -----
 1. Original-variations: missing permutations on noise levels 1 and 2.
-2. Small: missing low-bursting (Javier is assigned)
+2. Small: missing low-bursting and some CC levels (Javier is assigned)
 
 Ildefons
 --------
@@ -112,6 +112,10 @@ Things we want to compute for each participant and dataset:
 * Graph similarity
 * False discovery rate (at least for one instance)
 * ...
+
+Figures
+=======
+Folder containing some figures related to the computed metrics
 
 Questions
 ==========
