@@ -68,7 +68,8 @@ if(~isempty(params.Nsamples))
     G = G(1:Nsamples);
 end
 
-bins = length(unique(D(~isnan(D))));
+%bins = length(unique(D(~isnan(D))));
+bins = max(D(:));
 
 % Calculate the amount of dimensions
 dims = 2*k;
@@ -171,9 +172,9 @@ for i = 1:n
         P(idx) = P(idx)+hc;
 
         currentEntry = currentEntry+1;
-        if(params.debug && (mod(currentEntry, floor(totalEntries/1000)) == 0));
+        if(params.debug && (mod(currentEntry, floor(totalEntries/100)) == 0));
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            MSG = sprintf('%.2f%%...', currentEntry/totalEntries*100);
+            MSG = sprintf('%d%%...', round(currentEntry/totalEntries*100));
             disp([datestr(now, 'HH:MM:SS'), ' ', MSG]);
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         end

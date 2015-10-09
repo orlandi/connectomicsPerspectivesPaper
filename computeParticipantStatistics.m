@@ -39,9 +39,9 @@ scoresBaseFile = 'N100_CC0?_?-m=tuned-d=1.csv';
 networkFile = [groundTruthFolder filesep datasetFolder filesep networkBaseFile];
 scoresFile = [participantFolder filesep datasetFolder filesep scoresBaseFile ];
 
-clusteringList = [5];
+clusteringList = [2];
 %clusteringList = [2 3 5];
-networkList = 451:500;
+networkList = 451;
 %networkList = 451:468;
 %networkList = 452;
 inhibition_active = false;

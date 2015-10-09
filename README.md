@@ -18,7 +18,7 @@ For the perspectives paper we are focusing on two different datasets. You can do
 
 Note: This download location contains more datasets than actually needed. The reduced datasets are currently being uploaded here:
 
-[Download reduced datasets](https://www.dropbox.com/sh/0jrxowrhuntgmnb/AADWyFB_nQ0AdAC9cYEWIlCTa?dl=0)
+[Download reduced datasets](https://www.dropbox.com/sh/ww5146ypgbi93i0/AAA3DpllU9dpefZOZKNpiiNwa?dl=0)
 
 Original variations
 -------------------
@@ -68,7 +68,7 @@ Participants results
 ====================
 We are gathering as many results as possible from the participants with the datasets described above. The csv files with the results are currently being uploaded and will be available here:
 
-[Download results](https://www.dropbox.com/sh/6vo2mcuq22odhtq/AAD1PyUiNOkeMerm7n90qS4fa?dl=0)
+[Download results](https://www.dropbox.com/sh/1bwpln36lkz0mqk/AADrMbM26Vezr_XgEcD3sMlra?dl=0)
 
 This is the current state of the process:
 

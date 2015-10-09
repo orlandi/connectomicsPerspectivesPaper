@@ -8,9 +8,9 @@
 
 sleep `expr $RANDOM % 10`
 EXEC="python main.py"
-FOLDER="/home/users/orlandi/connectomicsPCVdata/data/small/normal-bursting"
-OUTPUT_FOLDER="/home/users/orlandi/connectomicsPCVdata/participants/aaagv/small/normal-bursting"
-NETWORK="N100_CC05_${PBS_ARRAYID}"
+FOLDER="/home/users/orlandi/research/connectomicsPerspectivesPaper/datasets/small/normal-bursting"
+OUTPUT_FOLDER="/home/users/orlandi/research/connectomicsPerspectivesPaper/participants_results/aaagv/small/normal-bursting"
+NETWORK="N100_CC03_${PBS_ARRAYID}"
 FLUORESCENCE_FILE="fluorescence_${NETWORK}.txt"
 EXEC_PARAMS="--directivity 1 --fluorescence ${FOLDER}/${FLUORESCENCE_FILE} --method tuned --network ${NETWORK} --output_dir ${OUTPUT_FOLDER}"
 
