@@ -78,12 +78,13 @@ Challenge
 
 AAAGV
 -----
-1. Original-variations: missing permutations on noise levels 1 and 2.
-2. Small: missing low-bursting and some CC levels (Javier is assigned)
+1. Original-variations: complete
+2. Small: complete
 
 Ildefons
 --------
-1. Missing everything (Bisakha is assigned)
+1. Original-variations: running (Javier)
+2. Small: got everything
 
 Lukasz8000
 ----------
@@ -96,7 +97,7 @@ Konnectomics
 
 GTE (benchmark)
 ---------------
-1. Original-variations: running (Javier is assigned)
+1. Original-variations: complete
 2. Small: complete
 
 DJMN
